@@ -13,28 +13,21 @@
   </div>
   <div class="col-sm-9 offset-sm-1">
    <div class="row">
+    {% for i in add %}
     <div class="col-sm-6">
      <div class="card">
       <div class="card-body">
-       <h3>Address 1</h3>
-       <p>Name: Rahul Kumar</p>
-       <p>Address 1: Lalpur</p>
-       <p>Address 2: Ranchi</p>
-       <p>State: Jharkhand</p>
+       
+       <h3>Address {{forloop.counter}} </h3>
+       <p>Name: {{i.name}}</p>
+       <p>Address 1: {{i.locality}}</p>
+       <p>Address 2: {{i.city}}</p>
+       <p>State: {{i.state}}</p>
+       <p>ZipCode: {{i.zipcode}}</p>  
       </div>
      </div>
     </div>
-    <div class="col-sm-6">
-     <div class="card">
-      <div class="card-body">
-       <h3>Address 2</h3>
-       <p>Name: Rohit Kumar</p>
-       <p>Address 1: Lalpur</p>
-       <p>Address 2: Ranchi</p>
-       <p>State: Jharkhand</p>
-      </div>
-     </div>
-    </div>
+    {% endfor %}
    </div>
   </div>
  </div>

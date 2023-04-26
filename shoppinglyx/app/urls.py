@@ -2,7 +2,8 @@ from django.urls import path
 from app import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import ProductView, ProductDetailView, laptop, topwear, CustomerRegistrationView
+from .views import ProductView, ProductDetailView, laptop, topwear, CustomerRegistrationView, ProfileView
+from .views import AddressView, show_cart, plus_cart, minus_cart, remove_cart, payment_done
 from django.contrib.auth import views as auth_views
 from .forms import LoginForm, MyPasswordChangeForm, MyPasswordResetForm, MySetPasswordForm
 urlpatterns = [
@@ -10,13 +11,25 @@ urlpatterns = [
 
     path('product-detail/<int:pk>/', ProductDetailView.as_view(), name='product-detail'),
 
-    path('cart/', views.add_to_cart, name='add-to-cart'),
+    path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
+
+    path('cart/', show_cart, name='showcart'),
+
+    path('pluscart/', plus_cart, name='pluscart'),
+
+    path('minuscart/', minus_cart, name='minuscart'),
+
+    path('removecart/', remove_cart, name='removecart'),
+
+    path('checkout/', views.checkout, name='checkout'),
+
+    path('paymentdone/', payment_done, name='paymentdone'),
 
     path('buy/', views.buy_now, name='buy-now'),
 
-    path('profile/', views.profile, name='profile'),
+    path('profile/', ProfileView.as_view(), name='profile'),
 
-    path('address/', views.address, name='address'),
+    path('address/', AddressView.as_view(), name='address'),
 
     path('orders/', views.orders, name='orders'),
 
@@ -68,5 +81,5 @@ urlpatterns = [
 
     path('registration/', CustomerRegistrationView.as_view(), name='customerregistration'),
 
-    path('checkout/', views.checkout, name='checkout'),
+    
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
