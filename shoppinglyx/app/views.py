@@ -5,6 +5,8 @@ from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 # def home(request):
 #  return render( request, 'app/home.html')
 
@@ -130,6 +132,7 @@ def buy_now(request):
 # def profile(request):
 #  return render(request, 'app/profile.html')
 
+@method_decorator(login_required, name='dispatch')
 class ProfileView(View):
   def get(self, request):
     form = CustomerProfileForm()
