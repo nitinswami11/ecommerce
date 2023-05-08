@@ -1,7 +1,23 @@
-FROM node:14-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
+# Set the base image to use for the container
+FROM python:3.8.10-slim-buster
+
+# Set the working directory inside the container
+WORKDIR /shoppinglyx
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install the requirements into the virtual environment
+RUN python -m venv venv && \
+    . venv/bin/activate && \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy the application code into the container
 COPY . .
-EXPOSE 3000
-CMD [ "npm", "start" ]
+
+# Expose the port used by the Django application
+EXPOSE 8000
+
+# Set the command to run when the container starts
+CMD [ "venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000" ]
